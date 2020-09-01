@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
-const connection = require('database');
+const connection = require('./database');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({
@@ -20,12 +20,12 @@ router.post("/signup", (req, res) => {
     res.json(login);
 })
 
-// Verification de la connexion Ã  la base de donnÃ©es.
-connection.connect(function(err) {
-  if(err)
-    console.log('error:', err.stack);
-  else
-    console.log('connected as id:', connection.threadId);
-})
+// // Verification de la connexion Ã  la base de donnÃ©es.
+// connection.connect(function(err) {
+//   if(err)
+//     console.log('error:', err.stack);
+//   else
+//     console.log('connected as id:', connection.threadId);
+// })
 
 module.exports = router;
