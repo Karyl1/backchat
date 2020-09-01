@@ -4,6 +4,8 @@ const app = express();
 const backend = require('./express');
 const http = require("http");
 const io = require('socket.io')(http);
+var cors = require('cors')
+app.use(cors())
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
