@@ -5,13 +5,14 @@ const connection = mysql.createConnection({
   database : 'nanochat',
   port: 3308,
 });
-connection.connect((err) => {
-  if(err){
-    console.log(err);
-    return;
-  }
-  console.log('Connection established');
-});
+
+// Verification de la connexion Ã  la base de donnÃ©es.
+connection.connect(function(err) {
+  if(err)
+    console.log('error:', err.stack);
+  else
+    console.log('connected as id:', connection.threadId);
+})
 
 // connection.end((err) => {
 //   // The connection is terminated gracefully

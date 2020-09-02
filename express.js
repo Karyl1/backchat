@@ -20,12 +20,4 @@ router.post("/signup", (req, res) => {
     res.json(login);
 })
 
-// // Verification de la connexion Ã  la base de donnÃ©es.
-// connection.connect(function(err) {
-//   if(err)
-//     console.log('error:', err.stack);
-//   else
-//     console.log('connected as id:', connection.threadId);
-// })
-
 module.exports = router;
