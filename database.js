@@ -35,16 +35,6 @@ function GetOneUsers(login, password){
       return err;
   })  
 }
-function AddOneUsers(login, password,mail){
-  connection.query("INSERT INTO user FROM (login, password, mail)  VALUES (" + login + "," + password + "," + mail + ")", (res, err) => {
-    if(!err)
-      connection.query("SELECT login, password, id_user, mail FROM user WHERE login =" + login + "AND password =" + password, (result, error) => {
-        return result;
-      })
-    else 
-      return err;
-  })  
-}
 
 function AddHistoricMessage(id_user,messages){
   const date = new Date().now();
