@@ -3,7 +3,7 @@ const connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   database : 'nanochat',
-  port: 3308,
+  port: 3306,
 });
 
 // Verification de la connexion Ã  la base de donnÃ©es.
@@ -21,14 +21,6 @@ connection.connect(function(err) {
 // });
 function GetUsers(){
   connection.query("SELECT * FROM user", (res, err) => {
-    if(!err)
-      return res;
-    else 
-      return err;
-  })  
-}
-function GetOneUsers(login, password){
-  connection.query("SELECT login, password, id_user, mail FROM user WHERE login =" + login + "AND password =" + password, (res, err) => {
     if(!err)
       return res;
     else 
