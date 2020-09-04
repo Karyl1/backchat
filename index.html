@@ -23,7 +23,7 @@
             </div>
 
             <div style="display: inline">
-                <input id="signup_bouton" type="submit" value="Sign Up">
+                <input id="signup-bouton" type="submit" value="Sign Up">
             </div>
     
           </form>
@@ -32,6 +32,7 @@
         <h1>Nanochat</h1>
     
         <form name="form-signup" class="form-sign-up">
+          <div>
               <input type="text" name="login2" id="login2" required placeholder="Enter your login">
             </div>
 
@@ -95,14 +96,14 @@
         const disconnect = $("#disconnect");
         const signin = $("#sign-in");
         const signinButton = $("#signin-button");
-        const signupButton = $("#signup_bouton");
+        const signupButton = $("#signup-bouton");
         const signup = $("#sign-up");
         
 
         chatbox.hide();
         showChat();
-
         signup.hide();
+
         signinButton.click(e => {
           signin.show();
           signup.hide();
@@ -120,10 +121,15 @@
 
         $('form[name="form-signup"]').submit((e) => {
           e.preventDefault();
-          if(password2.val() === password3.val())
+          if(password2.val() === password3.val()){
             postSignup(login2.val(), password2.val(), mail.val())
-          else
-            alert("passwords are different")
+            login2.val("");
+            password2.val("");
+            mail.val("");
+            password3.val("");
+          }else{
+            alert("Passwords are different")
+          }
           return false;
         });
 
