@@ -18,12 +18,13 @@ router.use(bodyParser.urlencoded({
 
 router.post("/signin", (req, res) => {
     const { login, password } = req.body;
-    console.log(login, password);
     connection.query(`SELECT login, password, id_user, mail, status FROM user WHERE login = "${login}" AND password = "${password}"`, (err, result) => {
-      if(!err)
-        res.json(JSON.parse(JSON.stringify(result[0])));
+      if(!err){
+        if(result[0] != null) {
+          res.json(JSON.parse(JSON.stringify(result[0])));}
+        }
       else 
-        return console.log("error", err);
+        console.log("error", err);
     })  
     //res.json(login);
 })
