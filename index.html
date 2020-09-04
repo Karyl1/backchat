@@ -6,7 +6,7 @@
     <title>Nanochat</title>
 </head>
 <body>
-    <div class="sign-in">
+    <div id="sign-in">
         <h1>Nanochat</h1>
     
         <form name="form-signin" class="form-sign-in">
@@ -30,7 +30,7 @@
     
           </form>
     </div>
-    <div class="sign-up">
+    <div id="sign-up">
         <h1>Nanochat</h1>
     
         <form name="form-signup" class="form-sign-up">
@@ -59,13 +59,13 @@
             </div> 
 
             <div>
-                <input type="submit" value="Sin In">
+                <input id='_signin' type="submit" value="Sin In">
             </div>  
 
         </form>
     </div>
 
-    <div>
+    <div id="chatbox">
         <ul id="messages"></ul>
         <form name="form-message">
             <input id="m" autocomplete="off" /><button>Send</button>
@@ -79,7 +79,7 @@
         var socket = io();
         $('form[name="form-message"').submit(function(e) {
           e.preventDefault(); // prevents page reloading
-          socket.emit('chat message', $('#m').val());
+          socket.emit('chat message', 'user: ' +$('#m').val());
           $('#m').val('');
           return false;
         });
@@ -95,6 +95,16 @@
 
         const formSignup = $('form[name="form-signup"]');
         const formSignin = $('form[name="form-signin"]');
+
+        const chatbox = $("#chatbox");
+        const signin = $("#sign-in")
+        const _signin = $("#_signin")
+
+        chatbox.show();
+        signin.hide();
+        _signin.click(e => {
+          signin.show(e);
+        })
 
         $('form[name="form-signup"]').submit((e) => {
           e.preventDefault();
