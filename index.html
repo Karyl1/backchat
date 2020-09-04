@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nanochat</title>
+</head>
+<body>
+    <div class="sign-in">
+        <h1>Nanochat</h1>
+    
+        <form name="form-signin" class="form-sign-in">
+            <div>
+              <label for="login">Enter your login: </label>
+              <input type="text" name="login" id="login" required>
+            </div>
+            
+            <div>
+              <label for="password">Enter your password: </label>
+              <input type="password" name="password" id="password" required>
+            </div>
+
+            <div>
+              <input type="submit" value="Send">
+            </div>
+
+            <div>
+                <input type="submit" value="Sin Up">
+            </div>
+    
+          </form>
+    </div>
+    <div class="sign-up">
+        <h1>Nanochat</h1>
+    
+        <form name="form-signup" class="form-sign-up">
+            <div>
+              <label for="login2">Enter your login: </label>
+              <input type="text" name="login2" id="login2" required>
+            </div>
+
+            <div>
+                <label for="mail">Enter your E-mail: </label>
+                <input type="email" name="mail" id="mail" required>
+            </div>
+
+            <div>
+              <label for="password2">Enter your password: </label>
+              <input type="password" name="password2" id="password2" required>
+            </div>
+
+            <div>
+                <label for="password3">Confirm your password: </label>
+                <input type="password" name="password3" id="password3" required>
+            </div>
+
+            <div>
+              <input type="submit" value="Send">
+            </div> 
+
+            <div>
+                <input type="submit" value="Sin In">
+            </div>  
+
+        </form>
+    </div>
+
+    <div>
+        <ul id="messages"></ul>
+        <form name="form-message">
+            <input id="m" autocomplete="off" /><button>Send</button>
+          </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script>
+      $(function () {
+        var socket = io();
+        $('form[name="form-message"').submit(function(e) {
+          e.preventDefault(); // prevents page reloading
+          socket.emit('chat message', $('#m').val());
+          $('#m').val('');
+          return false;
+        });
+        socket.on('chat message', function(msg){
+          $('#messages').append($('<li>').text(msg));
+        });
+        const login = $("#login")
+        const password = $("#password")
+        const login2 = $("#login2");
+        const password2 = $("#password2");
+        const password3 = $("#password3");
+        const mail = $("#mail");
+
+        const formSignup = $('form[name="form-signup"]');
+        const formSignin = $('form[name="form-signin"]');
+
+        $('form[name="form-signup"]').submit((e) => {
+          e.preventDefault();
+          if(password2.val() === password3.val())
+            postSignup(login2.val(), password2.val(), mail.val())
+          else
+            alert("passwords are different")
+          return false;
+        });
+
+        $('form[name="form-signin"]').submit((e) => {
+          e.preventDefault();
+          postSignin(login.val(), password.val())
+          return false;
+        });
+
+        function postSignup(login, password, mail) {
+          const _body = JSON.stringify({login, password, mail})
+          const _params = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: _body
+          };
+          const _url = "http://localhost:3000/";
+          fetch(_url + "signup",_params)
+          .then(res => res.json())
+          .then(res => console.log(res))
+          .catch(err => console.error(err));
+        }
+
+        function postSignin(login, password){
+          const body = JSON.stringify({login , password})
+          const params = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: body
+          };
+          const url = "http://localhost:3000/";
+          fetch(url + "signin",params)
+          .then(res => res.json())
+          .then(res => console.log(res))
+          .catch(err => console.error(err));
+        };
+      });
+    </script>
+</body>
+</html>

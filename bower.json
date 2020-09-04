@@ -1,0 +1,17 @@
+{
+  "name": "backchat",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Karyl <karylkenth@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Karyl1/backchat",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
