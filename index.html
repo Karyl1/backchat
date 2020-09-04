@@ -7,7 +7,7 @@
 </head>
 <body>
     <div id="sign-in">
-        <h1>Nanochat</h1>
+        <h1 style="text-align: center">Nanochat</h1>
     
         <form name="form-signin" class="form-sign-in">
             <div>
@@ -20,12 +20,12 @@
               <input type="password" name="password" id="password" required>
             </div>
 
-            <div>
+            <div style="display: inline">
               <input type="submit" value="Send">
             </div>
 
-            <div>
-                <input type="submit" value="Sin Up">
+            <div style="display: inline">
+                <input id="signup_bouton" type="submit" value="Sign Up">
             </div>
     
           </form>
@@ -54,12 +54,12 @@
                 <input type="password" name="password3" id="password3" required>
             </div>
 
-            <div>
+            <div style="display: inline">
               <input type="submit" value="Send">
             </div> 
 
-            <div>
-                <input id='_signin' type="submit" value="Sin In">
+            <div style="display: inline">
+                <input id='signin-button' type="submit" value="Sin In">
             </div>  
 
         </form>
@@ -70,6 +70,7 @@
         <form name="form-message">
             <input id="m" autocomplete="off" /><button>Send</button>
           </form>
+          <input type="submit" value="Disconnect">
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -97,13 +98,21 @@
         const formSignin = $('form[name="form-signin"]');
 
         const chatbox = $("#chatbox");
-        const signin = $("#sign-in")
-        const _signin = $("#_signin")
+        const signin = $("#sign-in");
+        const signinButton = $("#signin-button");
+        const signupButton = $("#signup_bouton");
+        const signup = $("#sign-up");
+        
 
-        chatbox.show();
+        chatbox.hide();
         signin.hide();
-        _signin.click(e => {
+        signinButton.click(e => {
           signin.show(e);
+          signup.hide(e);
+        })
+        signupButton.click(e => {
+          signin.hide(e);
+          signup.show(e);
         })
 
         $('form[name="form-signup"]').submit((e) => {
