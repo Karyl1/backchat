@@ -80,8 +80,9 @@
         var socket = io();
         $('form[name="form-message"').submit(function(e) {
           e.preventDefault(); // prevents page reloading
-          const user = getLocalstorage().login
-          socket.emit('chat message', user + ': ' +$('#m').val());
+          const user = getLocalstorage()
+          postHistoric(user, $('#m').val())
+          socket.emit('chat message', user.login + ': ' +$('#m').val());
           $('#m').val('');
           return false;
         });
@@ -188,6 +189,22 @@
           console.log(data)
           localStorage.setItem('account', JSON.stringify(data))
           showChat();
+        }
+
+        function postHistoric(objUser, message) {
+          const body = JSON.stringify({id_user: objUser.id_user, login: objUser.login, message})
+          const params = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: body
+          };
+          const url = "http://localhost:3000/";
+          fetch(url + "createTrace",params)
+          .then(res => res.json())
+          .then(res => postLocalStorage(res))
+          .catch(err => console.error(err));
         }
 
       });

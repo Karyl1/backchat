@@ -47,5 +47,17 @@ router.post("/signup", (req, res) => {
     // res.json(result);
 })
 
+router.post("/createTrace", (req, res) => {
+  const { id_user, login, message} = req.body;
+  const date = new Date();
+  const format = date.toLocaleDateString("fr-FR");
+  connection.query('INSERT INTO `historic_chat`(`id_user`, `message`, `date`) VALUES ('+`${id_user}, "${message}", "${format}")`, (error, result) => {
+    if(!error) {
+      console.log("ça marche")
+    } else {
+      console.log("ça marche pas")
+    }
+  })
+})
 
 module.exports = router;
