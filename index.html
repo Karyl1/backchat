@@ -100,7 +100,9 @@
         const signin = $("#sign-in")
         const _signin = $("#_signin")
 
-        chatbox.show();
+        chatbox.hide();
+        showChat();
+
         signin.hide();
         _signin.click(e => {
           signin.show(e);
@@ -133,7 +135,7 @@
           const _url = "http://localhost:3000/";
           fetch(_url + "signup",_params)
           .then(res => res.json())
-          .then(res => console.log(res))
+          .then(res => postLocalStorage(res))
           .catch(err => console.error(err));
         }
 
@@ -149,9 +151,26 @@
           const url = "http://localhost:3000/";
           fetch(url + "signin",params)
           .then(res => res.json())
-          .then(res => console.log(res))
+          .then(res => postLocalStorage(res))
           .catch(err => console.error(err));
         };
+
+        function showChat() {
+          if(getLocalstorage() != null) {
+            chatbox.show();
+          }
+        }
+
+        function getLocalstorage() {
+          return JSON.parse(localStorage.getItem('account'))
+        }
+
+        function postLocalStorage(data) {
+          console.log(data)
+          localStorage.setItem('account', JSON.stringify(data))
+          showChat();
+        }
+
       });
     </script>
 </body>
