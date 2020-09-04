@@ -19,7 +19,13 @@ router.use(bodyParser.urlencoded({
 router.post("/signin", (req, res) => {
     const { login, password } = req.body;
     console.log(login, password);
-    res.json(login);
+    connection.query(`SELECT login, password, id_user, mail, status FROM user WHERE login = "${login}" AND password = "${password}"`, (err, result) => {
+      if(!err)
+        res.json(JSON.parse(JSON.stringify(result[0])));
+      else 
+        return console.log("error", err);
+    })  
+    //res.json(login);
 })
 
 router.post("/signup", (req, res) => {
@@ -40,8 +46,5 @@ router.post("/signup", (req, res) => {
     // res.json(result);
 })
 
-
-function AddOneUsers(login, password,mail){
-}
 
 module.exports = router;
