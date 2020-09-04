@@ -3,7 +3,7 @@ const connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   database : 'nanochat',
-  port: 3306,
+  port: 3308,
 });
 
 // Verification de la connexion Ã  la base de donnÃ©es.

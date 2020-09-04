@@ -63,7 +63,7 @@
         <form name="form-message">
             <input id="m" autocomplete="off" /><button>Send</button>
           </form>
-          <input type="submit" value="Disconnect">
+          <input id="disconnect" type="submit" value="Disconnect">
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="socket.io/socket.io.js"></script>
@@ -72,7 +72,8 @@
         var socket = io();
         $('form[name="form-message"').submit(function(e) {
           e.preventDefault(); // prevents page reloading
-          socket.emit('chat message', 'user: ' +$('#m').val());
+          const user = getLocalstorage().login
+          socket.emit('chat message', user + ': ' +$('#m').val());
           $('#m').val('');
           return false;
         });
@@ -90,6 +91,7 @@
         const formSignin = $('form[name="form-signin"]');
 
         const chatbox = $("#chatbox");
+        const disconnect = $("#disconnect");
         const signin = $("#sign-in");
         const signinButton = $("#signin-button");
         const signupButton = $("#signup_bouton");
@@ -97,14 +99,22 @@
         
 
         chatbox.hide();
-        signin.hide();
+        showChat();
+
+        signup.hide();
         signinButton.click(e => {
-          signin.show(e);
-          signup.hide(e);
-        })
+          signin.show();
+          signup.hide();
+        });
+
         signupButton.click(e => {
-          signin.hide(e);
-          signup.show(e);
+          signin.hide();
+          signup.show();
+        });
+
+        disconnect.click(e => {
+          localStorage.removeItem('account');
+          window.location.reload();
         })
 
         $('form[name="form-signup"]').submit((e) => {
@@ -134,7 +144,7 @@
           const _url = "http://localhost:3000/";
           fetch(_url + "signup",_params)
           .then(res => res.json())
-          .then(res => console.log(res))
+          .then(res => postLocalStorage(res))
           .catch(err => console.error(err));
         }
 
@@ -150,9 +160,28 @@
           const url = "http://localhost:3000/";
           fetch(url + "signin",params)
           .then(res => res.json())
-          .then(res => console.log(res))
+          .then(res => postLocalStorage(res))
           .catch(err => console.error(err));
         };
+
+        function showChat() {
+          if(getLocalstorage() != null) {
+            signin.hide();
+            signup.hide();
+            chatbox.show();
+          }
+        }
+
+        function getLocalstorage() {
+          return JSON.parse(localStorage.getItem('account'))
+        }
+
+        function postLocalStorage(data) {
+          console.log(data)
+          localStorage.setItem('account', JSON.stringify(data))
+          showChat();
+        }
+
       });
     </script>
 
