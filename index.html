@@ -7,17 +7,15 @@
 </head>
 <body>
     <div id="sign-in">
-        <h1 style="text-align: center">Nanochat</h1>
+        <h1>Nanochat</h1>
     
         <form name="form-signin" class="form-sign-in">
             <div>
-              <label for="login">Enter your login: </label>
-              <input type="text" name="login" id="login" required>
+              <input type="text" name="login" id="login" required placeholder="Enter your login">
             </div>
             
             <div>
-              <label for="password">Enter your password: </label>
-              <input type="password" name="password" id="password" required>
+              <input type="password" name="password" id="password" required placeholder="Enter your password">
             </div>
 
             <div style="display: inline">
@@ -34,24 +32,19 @@
         <h1>Nanochat</h1>
     
         <form name="form-signup" class="form-sign-up">
-            <div>
-              <label for="login2">Enter your login: </label>
-              <input type="text" name="login2" id="login2" required>
+              <input type="text" name="login2" id="login2" required placeholder="Enter your login">
             </div>
 
             <div>
-                <label for="mail">Enter your E-mail: </label>
-                <input type="email" name="mail" id="mail" required>
+                <input type="email" name="mail" id="mail" required placeholder="Enter your E-mail">
             </div>
 
             <div>
-              <label for="password2">Enter your password: </label>
-              <input type="password" name="password2" id="password2" required>
+              <input type="password" name="password2" id="password2" required placeholder="Enter your password">
             </div>
 
             <div>
-                <label for="password3">Confirm your password: </label>
-                <input type="password" name="password3" id="password3" required>
+                <input type="password" name="password3" id="password3" required placeholder="Confirm your password">
             </div>
 
             <div style="display: inline">
@@ -72,7 +65,6 @@
           </form>
           <input id="disconnect" type="submit" value="Disconnect">
     </div>
-
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="socket.io/socket.io.js"></script>
     <script>
@@ -209,5 +201,6 @@
 
       });
     </script>
+
 </body>
 </html>
